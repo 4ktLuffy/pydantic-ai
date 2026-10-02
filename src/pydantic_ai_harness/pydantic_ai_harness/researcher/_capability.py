@@ -57,7 +57,8 @@ class Researcher(CombinedCapability[AgentDepsT]):
         if store is None or isinstance(store, WorkspaceStore):
             capabilities.append(RequireWorkspace[AgentDepsT]('Researcher'))
         if instructions is not None:
-            capabilities.append(Capability[AgentDepsT](instructions=instructions))
+            # The id also names its (empty) function toolset, which durable execution requires.
+            capabilities.append(Capability[AgentDepsT](id='researcher_instructions', instructions=instructions))
         capabilities.extend(
             [
                 WebSearch[AgentDepsT](local=True),
